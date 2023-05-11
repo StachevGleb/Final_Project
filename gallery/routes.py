@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from gallery import app, db, bcrypt
-from gallery.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from gallery.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm
 from gallery.models import User, Post
 from flask_login import login_user, logout_user, login_required, current_user
 from PIL import Image
@@ -8,26 +8,11 @@ import secrets
 import os
 
 
-posts = [
-    {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
-    }
-]
-
-
 @app.route("/")
-@app.route("/home")
-def home():
-    return render_template('home.html', posts=posts)
+@app.route("/posts")
+def posts():
+    post = Post.query.all()
+    return render_template('posts.html', posts=post)
 
 
 @app.route("/about")
@@ -38,7 +23,7 @@ def about():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('posts'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -53,14 +38,14 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('posts'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('posts'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -68,7 +53,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('posts'))
 
 def save_pic(form_pic):
     random_hex = secrets.token_hex(8)
@@ -101,3 +86,24 @@ def profile():
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_img/' + current_user.image_file)
     return render_template('profile.html', title='Profile', image_file=image_file, form=form)
+
+@app.route("/post/new", methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Post has been created!', 'success')
+        return redirect(url_for('posts'))
+    return render_template('create_post.html', title='New Post', form=form)
+
+
+@app.route("/post/<int:post_id>")
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title=post.title, post=post)
+
+# @app.route("/post/<int:post_id>/update")
+# def post(post_id):
