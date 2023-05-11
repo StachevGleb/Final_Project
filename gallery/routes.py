@@ -3,6 +3,10 @@ from gallery import app, db, bcrypt
 from gallery.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from gallery.models import User, Post
 from flask_login import login_user, logout_user, login_required, current_user
+from PIL import Image
+import secrets
+import os
+
 
 posts = [
     {
@@ -65,15 +69,32 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+def save_pic(form_pic):
+    random_hex = secrets.token_hex(8)
+    _, f_ext =  os.path.splitext(form_pic.filename)
+    pic_filename = random_hex + f_ext
+    pic_path = os.path.join(app.root_path, 'static/profile_img', pic_filename)
+
+    resized_pic = (125, 125)
+    img = Image.open(form_pic)
+    img.thumbnail(resized_pic)
+    img.save(pic_path)
+
+    return pic_filename
+
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
     form = UpdateProfileForm()
     if form.validate_on_submit():
+        if form.profile_pic.data:
+            picture_file = save_pic(form.profile_pic.data)
+            current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
-        flash('Your name and email have been updated!', 'success')
+        flash('Your profile updated!', 'success')
         return redirect(url_for('profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
