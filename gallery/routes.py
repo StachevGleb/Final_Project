@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from gallery import app, db, bcrypt
-from gallery.forms import RegistrationForm, LoginForm
+from gallery.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from gallery.models import User, Post
-from flask_login import login_user, logout_user, login_required,current_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 posts = [
     {
@@ -65,7 +65,18 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
-@app.route("/profile")
+@app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html', title='Profile')
+    form = UpdateProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your name and email have been updated!', 'success')
+        return redirect(url_for('profile'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static', filename='profile_img/' + current_user.image_file)
+    return render_template('profile.html', title='Profile', image_file=image_file, form=form)
