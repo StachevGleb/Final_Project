@@ -1,3 +1,5 @@
+import flask_migrate
+import flask_sqlalchemy
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -7,8 +9,24 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '5791628bb0b13mbjhv887vge280ba245'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
+
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+
+
+db_info = {'host': 'localhost',
+           'database': 'gallery',
+           'psw': 'Lena091165',
+           'user': 'postgres',
+           'port': '5432'}
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db_info['user']}:{db_info['psw']}@{db_info['host']}/{db_info['database']}"
+
+db = flask_sqlalchemy.SQLAlchemy(app)
+migrate = flask_migrate.Migrate(app, db)
+# db = SQLAlchemy(app)
+
+
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'

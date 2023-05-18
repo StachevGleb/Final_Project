@@ -3,12 +3,13 @@ from gallery import app, db, bcrypt
 # mail
 from gallery.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm
 # RequestResetForm, ResetPaswordForm
-from gallery.models import User, Post
+from gallery.models import User, Post, Artist
 from flask import abort
 from flask_login import login_user, logout_user, login_required, current_user
 from PIL import Image
 import secrets
 import os
+# from gallery.painting_db import save_painting
 # from flask_mail import Message
 
 
@@ -17,6 +18,8 @@ import os
 def posts():
     page = request.args.get('page', 1, type=int)
     posted = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
+    # save_artist()
+    # save_painting()
     return render_template('posts.html', posted=posted)
 
 
@@ -55,6 +58,7 @@ def login():
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
+
 @app.route("/logout")
 def logout():
     logout_user()
@@ -64,7 +68,7 @@ def logout():
 # correct saving of profile img (size)
 def save_pic(form_pic):
     random_hex = secrets.token_hex(8)
-    _, f_ext =  os.path.splitext(form_pic.filename)
+    _, f_ext = os.path.splitext(form_pic.filename)
     pic_filename = random_hex + f_ext
     pic_path = os.path.join(app.root_path, 'static/profile_img', pic_filename)
 
@@ -74,6 +78,7 @@ def save_pic(form_pic):
     img.save(pic_path)
 
     return pic_filename
+
 
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
@@ -94,6 +99,7 @@ def profile():
     image_file = url_for('static', filename='profile_img/' + current_user.image_file)
     return render_template('profile.html', title='Profile', image_file=image_file, form=form)
 
+
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -111,6 +117,7 @@ def new_post():
 def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title=post.title, post=post)
+
 
 @app.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
 @login_required
@@ -130,6 +137,7 @@ def update_post(post_id):
         form.content.data = post.content
     return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
 
+
 @app.route("/post/<int:post_id>/delete", methods=['POST'])
 @login_required
 def delete_post(post_id):
@@ -148,6 +156,7 @@ def user_posts(username):
     user = User.query.filter_by(username=username).first_or_404()
     posted = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
     return render_template('user_posts.html', posted=posted, user=user)
+
 
 # sending email
 # def send_reset_email(user):
@@ -206,3 +215,12 @@ def error_403(error):
 @app.errorhandler(500)
 def error_500(error):
     return render_template('errors/500.html'), 500
+
+
+@app.route("/artists")
+def artists():
+    page = request.args.get('page', 1, type=int)
+    art_list = Artist.query.order_by(Artist.id.desc()).paginate(page=page, per_page=3)
+
+    return render_template('artists.html', art_list=art_list)
+

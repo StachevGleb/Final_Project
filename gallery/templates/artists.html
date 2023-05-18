@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Artists are presented on the website</h1>
+
+ {% for artist in art_list.items %}
+
+        <img class="rounded article-img-art m-2" src="{{ url_for('static', filename='artists_img/' + artist.id|string + '.jpg') }}">
+        <b><div class="ml-2">{{ artist.artistname }}</div></b>
+        <p class="text-secondary">{{ artist.about }}</p>
+
+
+    {% endfor %}
+
+    {% for page_num in art_list.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        {% if page_num %}
+            {% if art_list.page == page_num %}
+            <a class="btn btn-info mb-4" href="{{ url_for('artists', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('artists', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+        ...
+        {% endif %}
+    {% endfor %}
+
+{% endblock content %}

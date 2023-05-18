@@ -43,3 +43,18 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+
+class Artist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    artistname = db.Column(db.String(20), unique=True, nullable=False)
+    about = db.Column(db.Text, nullable=False)
+    paintings = db.relationship('Painting', backref='creator', lazy=True)
+
+
+class Painting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    paint_file = db.Column(db.String(20), nullable=False, default='default_paint.jpg')
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'), nullable=False)
