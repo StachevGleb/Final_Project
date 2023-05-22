@@ -3,11 +3,14 @@
 <h1>Artists are presented on the website</h1>
 
  {% for artist in art_list.items %}
+<div class="d-flex justify-content-start">
 
         <img class="rounded article-img-art m-2" src="{{ url_for('static', filename='artists_img/' + artist.id|string + '.jpg') }}">
-        <b><div class="ml-2">{{ artist.artistname }}</div></b>
-        <p class="text-secondary">{{ artist.about }}</p>
-
+    <div class="d-flex flex-column align-items-center">
+        <b><div>{{ artist.artistname }}</div></b>
+        <p class="text-secondary mt-3">{{ artist.about }}</p>
+    </div>
+</div>
 
     {% endfor %}
 
