@@ -10,7 +10,9 @@ from flask_login import login_user, logout_user, login_required, current_user
 from PIL import Image
 import secrets
 import os
-import sqlite3
+
+#############################
+import pandas as pd
 
 
 # from gallery.painting_db import save_painting
@@ -244,11 +246,18 @@ def paintings():
     cursor.execute(query)
     results = cursor.fetchall()  # Retrieve all rows
     images_list = []
+    images_list_rel = []
     for row in results:
         id_value = row[0]
         image_list = os.listdir('gallery/static/paintings' + '/' + str(id_value))
         image_list = [str(id_value) + '/' + image for image in image_list]
         images_list.append(image_list)
+
+        for image in image_list:
+            my_new_string = image.replace(".jpg", "")
+            my_new_string = my_new_string.replace("/", '').lstrip('0123456789')
+            images_list_rel.append(my_new_string)
+
         # print("ID:", id_value)
         # if painting[id_value].artist_id == id_value:
         #     folder_path = 'gallery/static/paintings/' + str(id_value)
@@ -259,9 +268,16 @@ def paintings():
     conn.close()
 
     paint_rel = Painting.query.all()
-    artist_rel = Artist.query.all()
+    artist_list = Artist.query.all()
     page = request.args.get('page', 1, type=int)
     paint_list = Painting.query.order_by(Painting.id.asc()).paginate(page=page, per_page=6)
     print(images_list)
+    print(images_list_rel)
+    df = pd.DataFrame(images_list)
+
+    # for i in df.index:
+    #     for painting in paint_rel:
+    #         if (i + 1) == painting.artist_id:
+    #             print(images_list[i])
     return render_template('paintings.html', paint_list=paint_list, images_list=images_list, paint_rel=paint_rel,
-                           artist_rel=artist_rel)
+                           artist_list=artist_list, images_list_rel=images_list_rel)

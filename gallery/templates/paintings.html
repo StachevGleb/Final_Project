@@ -80,30 +80,27 @@
 
 
     <!--           block content   -->
-
+<div class="row">
     {% for painting in paint_list.items %}
-    <div class="d-flex align-items-center justify-content-center">
-        {% for artist in artist_rel %}
-            {% for creator in paint_rel %}
+    <div class="col d-flex flex-column">
 
-                {% if artist.id == painting.artist_id %}
 
-                    {% for image in images_list %}
-                        {% for img in image %}
-                            <img style="width: 10opx; height: 100px;" src="{{ url_for('static', filename='paintings/' + img ) }}">
+
+                        {% for img_desc in images_list_rel %}
+                             {% if painting.description == img_desc %}
+                                <img class="frame" src="{{ url_for('static', filename='paintings/' + painting.artist_id|string + '/' + img_desc + '.jpg' ) }}">
+                            {% endif %}
                         {% endfor %}
-                    {% endfor %}
 
-                {% endif %}
+     <div class="mt-3 d-flex justify-content-center"><h3>{{ painting.title }}</h3></div>
 
-        {% endfor %}
-            {% endfor %}
+     <div class="mb-3 d-flex justify-content-center"><p>{{ painting.description }}</p></div>
 
-        <div class="m-3"><h3>{{ painting.title }}</h3></div>
-        <br>
-        <div class="m-3"><p>{{ painting.description }}</p></div>
+
     </div>
     {% endfor %}
+    </div>
+
 
 
     {% for page_num in paint_list.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}

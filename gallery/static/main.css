@@ -87,3 +87,20 @@ a.article-title:hover {
  .bg-teal {
     background-color: #444654; /* Set the background color to a custom shade of teal */
   }
+
+
+.frame:hover{
+ height: 45vh;
+ transition: 2s;
+}
+
+
+.frame {
+  transition-delay: 4s;
+  height: 40vh;
+  border: 3px solid #ccc;
+  background: #eee;
+  margin: auto;
+  padding: 15px 10px;
+}
+
