@@ -1,14 +1,18 @@
+import psycopg2
 from flask import render_template, url_for, flash, redirect, request
 from gallery import app, db, bcrypt
 # mail
 from gallery.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm
 # RequestResetForm, ResetPaswordForm
-from gallery.models import User, Post, Artist
+from gallery.models import User, Post, Artist, Painting
 from flask import abort
 from flask_login import login_user, logout_user, login_required, current_user
 from PIL import Image
 import secrets
 import os
+import sqlite3
+
+
 # from gallery.painting_db import save_painting
 # from flask_mail import Message
 
@@ -220,7 +224,44 @@ def error_500(error):
 @app.route("/artists")
 def artists():
     page = request.args.get('page', 1, type=int)
-    art_list = Artist.query.order_by(Artist.id.desc()).paginate(page=page, per_page=3)
+    art_list = Artist.query.order_by(Artist.id.asc()).paginate(page=page, per_page=3)
 
     return render_template('artists.html', art_list=art_list)
 
+
+@app.route("/paintings")
+def paintings():
+    conn = psycopg2.connect(
+        host="localhost",
+        port="5432",
+        database="gallery",
+        user="postgres",
+        password="Lena091165"
+    )
+    cursor = conn.cursor()
+    query = "SELECT id FROM artist"
+
+    cursor.execute(query)
+    results = cursor.fetchall()  # Retrieve all rows
+    images_list = []
+    for row in results:
+        id_value = row[0]
+        image_list = os.listdir('gallery/static/paintings' + '/' + str(id_value))
+        image_list = [str(id_value) + '/' + image for image in image_list]
+        images_list.append(image_list)
+        # print("ID:", id_value)
+        # if painting[id_value].artist_id == id_value:
+        #     folder_path = 'gallery/static/paintings/' + str(id_value)
+        #     for file in os.listdir(folder_path):
+        #         if file.endswith('.jpg'):
+        #             image_files.append(file)
+    cursor.close()
+    conn.close()
+
+    paint_rel = Painting.query.all()
+    artist_rel = Artist.query.all()
+    page = request.args.get('page', 1, type=int)
+    paint_list = Painting.query.order_by(Painting.id.asc()).paginate(page=page, per_page=6)
+    print(images_list)
+    return render_template('paintings.html', paint_list=paint_list, images_list=images_list, paint_rel=paint_rel,
+                           artist_rel=artist_rel)
