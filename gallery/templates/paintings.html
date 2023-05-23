@@ -10,6 +10,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
 
     {% if title %}
     <title> Pic Gallery - {{ title }}</title>
@@ -30,11 +31,12 @@
                     Picture Gallery
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="nav-item nav-link" href="{{ url_for('artists') }}">
-                        <button class="dropdown-item" type="button">Artists</button>
-                    </a>
-                    <button class="dropdown-item" type="button">Masterpieces</button>
-                    <button class="dropdown-item" type="button">Upload my paintings</button>
+                    <a class="nav-item nav-link" href="{{ url_for('posts') }}"><button class="dropdown-item" type="button"><b>Posts</b></button></a>
+                 {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{{ url_for('new_post') }}"><button class="dropdown-item" type="button"><b>New Post</b></button></a>
+                    <a class="nav-item nav-link" href="{{ url_for('profile') }}"><button class="dropdown-item btn btn-outline-info text-primary" type="button">Profile</button></a>
+                 {% endif %}
+                    <a class="nav-item nav-link" href="{{ url_for('about') }}"><button class="dropdown-item btn-secondary text-secondary" type="button">About</button></a>
                 </div>
             </div>
 
@@ -48,15 +50,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="{{ url_for('posts') }}">Posts</a>
-                    <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+                <a class="nav-item nav-link" href="{{ url_for('artists') }}"><b>ARTISTS</b></a>
+                <a class="nav-item nav-link" href="{{ url_for('paintings') }}"><b>MASTERPIECES</b></a>
+                     {% if current_user.is_authenticated %}
+                        <a class="nav-item nav-link text-success" href="#"><small><b>Upload My Paintings</b></small></a>
+                     {% endif %}
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
                     {% if current_user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{{ url_for('new_post') }}">New Post</a>
-                    <a class="nav-item nav-link" href="{{ url_for('profile') }}">Profile</a>
-                    <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="nav-item nav-link text-muted" href="{{ url_for('logout') }}"><small><b>Logout</b></small></a>
                     {% else %}
                     <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
                     <a class="nav-item nav-link" href="{{ url_for('register') }}">Sing up</a>
@@ -80,27 +83,26 @@
 
 
     <!--           block content   -->
-<div class="row">
-    {% for painting in paint_list.items %}
-    <div class="col d-flex flex-column">
+    <div class="row">
+        {% for painting in paint_list.items %}
+        <div class="col d-flex flex-column">
 
 
+            {% for img_desc in images_list_rel %}
+            {% if painting.description == img_desc %}
+            <img class="frame"
+                 src="{{ url_for('static', filename='paintings/' + painting.artist_id|string + '/' + img_desc + '.jpg' ) }}">
+            {% endif %}
+            {% endfor %}
 
-                        {% for img_desc in images_list_rel %}
-                             {% if painting.description == img_desc %}
-                                <img class="frame" src="{{ url_for('static', filename='paintings/' + painting.artist_id|string + '/' + img_desc + '.jpg' ) }}">
-                            {% endif %}
-                        {% endfor %}
+            <div class="mt-3 d-flex justify-content-center"><h3>{{ painting.title }}</h3></div>
 
-     <div class="mt-3 d-flex justify-content-center"><h3>{{ painting.title }}</h3></div>
-
-     <div class="mb-3 d-flex justify-content-center"><p>{{ painting.description }}</p></div>
+            <div class="mb-3 d-flex justify-content-center"><p>{{ painting.description }}</p></div>
 
 
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    </div>
-
 
 
     {% for page_num in paint_list.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}

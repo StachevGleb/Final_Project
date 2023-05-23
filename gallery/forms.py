@@ -5,6 +5,8 @@ from gallery.models import User
 from flask_login import current_user
 from flask_wtf.file import FileField, FileAllowed
 
+
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
@@ -60,18 +62,22 @@ class PostForm(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
 
+
 class RequestResetForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     submit = SubmitField('Request to reset password')
+
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is None:
             raise ValidationError('There is no profile with this email. First you should sing up.')
 
+
 # sending email
-# class ResetPaswordForm(FlaskForm):
-#     password = PasswordField('Password', validators=[DataRequired()])
-#     confirm_password = PasswordField('Confirm Password',
-#                                      validators=[DataRequired(), EqualTo('password')])
-#     submit = SubmitField('Reset password')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset password')
