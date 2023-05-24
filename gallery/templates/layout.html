@@ -15,6 +15,9 @@
     {% else %}
         <title>Picture Gallery</title>
     {% endif %}
+
+    {% block contentA %}{% endblock %}
+
 </head>
 <body>
     <header class="site-header">
@@ -34,13 +37,11 @@
                     <a class="nav-item nav-link" href="{{ url_for('new_post') }}"><button class="dropdown-item" type="button"><b>New Post</b></button></a>
                     <a class="nav-item nav-link" href="{{ url_for('profile') }}"><button class="dropdown-item btn btn-outline-info text-primary" type="button">Profile</button></a>
                  {% endif %}
-                    <a class="nav-item nav-link" href="{{ url_for('match_artists') }}"><button class="dropdown-item btn-secondary text-secondary" type="button">Game</button></a>
+                    <a class="nav-item nav-link" href="{{ url_for('match_artists') }}"><button class="dropdown-item btn-secondary text-info" type="button">Game</button></a>
                     <a class="nav-item nav-link" href="{{ url_for('about') }}"><button class="dropdown-item btn-secondary text-secondary" type="button">About</button></a>
                 </div>
             </div>
 
-
-<!--            -->
 
 <!--          <a class="navbar-brand mr-4" href="/">Picture Gallery</a>-->
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,20 +82,7 @@
           {% endwith %}
           {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
-          <div class="content-section">
-            <h3 class="ml-2">Art gallery</h3>
-            <p class='text-muted'>This is the place where you can see the paintings of famous artists and not very famous, but still full of soulfulness.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Artists</li>
-                <li class="list-group-item list-group-item-light">Paintings</li>
-                <li class="list-group-item list-group-item-light">Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-              </ul>
-            </p>
-          </div>
-        </div>
+          {% block contentC %}{% endblock %}
       </div>
     </main>
 
@@ -104,5 +92,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% block contentB %}{% endblock %}
 </body>
 </html>

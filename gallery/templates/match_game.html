@@ -1,19 +1,7 @@
 {% extends "layout.html" %}
-{% block content %}
-   <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Match our Artists</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Yusei+Magic&display=swap" rel="stylesheet">
-
-</head>
-<body>
+{% block contentC %}
+<div class="container d-flex justify-content-around">
+    <div>
     <header>
     <div id="heading-tag">Match Artists</div>
     <div id="time-res-wrap">
@@ -23,9 +11,6 @@
     </div>
     </header>
     <div id="div-wrapper">
-
-
-
         <div class="flip-box">
             <div class="flip-box-inner">
                 <div class="card"></div>
@@ -193,9 +178,23 @@
                 <div class="card"></div>
                 <div class="flip-box-back"></div>
             </div>
+        </div>
         </div>
     </div>
+</div>
+{% endblock contentC %}
+
+{% block contentA %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500&family=Yusei+Magic&display=swap" rel="stylesheet">
+
+{% endblock contentA %}
+
+{% block contentB %}
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
-{% endblock content %}
+{% endblock contentB %}
+
+
