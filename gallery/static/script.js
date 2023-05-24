@@ -19,13 +19,21 @@ for (let i = 1; i <= 14; i++) {
     numArr.push(i, i)
 }
 numArr.sort(() => 0.5 - Math.random());
-addBackNum()
+let imagePath = "./static/artists_img/";
+addBackNum(imagePath)
 
 //numbers adding func
-function addBackNum() {
+function addBackNum(imagePath) {
     let a = 0
     for (let blackSide of backSides) {
         blackSide.textContent = numArr[a]
+        console.log(numArr[a])
+        let imageName = numArr[a].toString() + ".jpg";
+        let fullPath = `${imagePath}${imageName}`;
+        blackSide.style.backgroundImage = `url('${fullPath}')`;
+        blackSide.style.backgroundSize = "95% 95%"
+        blackSide.style.backgroundRepeat = "no-repeat"
+        blackSide.style.color = "transparent";
         a++
     }
 }
