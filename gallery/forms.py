@@ -6,7 +6,6 @@ from flask_login import current_user
 from flask_wtf.file import FileField, FileAllowed
 
 
-
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
@@ -41,7 +40,7 @@ class UpdateProfileForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
-    profile_pic = FileField('Upload your profile picture', validators=[FileAllowed(['jpg', 'png'])])
+    profile_pic = FileField('Upload your profile picture (only .png and .jpg)', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
 
     def validate_name(self, username):
@@ -81,3 +80,13 @@ class ResetPasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset password')
+
+
+# Uploading paintings
+class UploadPaintingForm(FlaskForm):
+    about = StringField('Two sentences about yourself',
+                        validators=[DataRequired(), Length(min=2, max=100)])
+    description = StringField('Short name of your painting',
+                           validators=[DataRequired(), Length(min=2, max=100)])
+    painting_img = FileField('Upload your painting (only .png and .jpg)', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Upload')

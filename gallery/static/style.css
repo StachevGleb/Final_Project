@@ -1,0 +1,303 @@
+*{
+  user-select: none;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 239, 239);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#heading-tag{
+    height: 8vh;
+    width: 22vw;
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 2rem;
+    color: navy;
+    border-bottom: 2px dashed green;
+    text-align: center;
+}
+header{
+    position: relative;
+    padding: 0;
+    height: 20vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+#time-res-wrap{
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+#timer{
+    width: 35%;
+    height: 100%;
+    text-align: center;
+    font-family: 'Unbounded', cursive;
+    font-size: 2rem;
+    color: rgb(34, 34, 55);
+    margin-top: 4vh;
+}
+#start-clear-button{
+    width: 20%;
+    height: 80%;
+    font-family: 'Unbounded', cursive;
+    font-size: 1rem;
+    border-radius: 15px;
+    border-style: hidden;
+    background-color: rgb(184, 184, 204);
+    color: red;
+}
+#start-clear-button:hover{
+    transition: 1s;
+    background-color: rgb(165, 165, 208);
+    color: yellow;
+}
+#start-clear-button:active{
+    transition: .2s;
+    background-color: rgb(236, 76, 76);
+    color: green;
+}
+#result-count{
+    width: 35%;
+    height: 100%;
+    text-align: center;
+    font-family: 'Unbounded', cursive;
+    font-size: 1.5rem;
+    color: rgb(34, 34, 55);
+    margin-top: 5vh;
+}
+#div-wrapper{
+    position: relative;
+    padding-left: 4.0rem;
+    height: 80vh;
+    width: 60vw;
+    display: grid;
+    grid-template-columns: repeat(7, 5fr);
+    grid-template-rows: repeat(5, 5fr);
+}
+.flip-box .flip-box-inner .card {
+    /* border: 1px dotted green; */
+    cursor: pointer;
+    width: 7vw;
+    height: 15vh;
+}
+
+
+/* Flip part*/
+/* The flip box container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-box {
+    background-color: transparent;
+    width: 7vw;
+    height: 15vh;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  }
+
+  /* This container is needed to position the front and back side */
+  .flip-box-inner {
+    position: relative;
+    width: 7vw;
+    height: 15vh;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-box.active .flip-box-inner{
+    transform: rotateY(180deg);
+  }
+  .flip-box.match .flip-box-inner{
+    transform: rotateY(180deg);
+  }
+  /* Position the front and back side */
+  .card, .flip-box-back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    position: absolute;
+    width: 7vw;
+    height: 13vh;
+    border-radius: 5%;
+    margin-left: -0.5vw;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+
+  /* Style the front side */
+  .card {
+    background-color: #bbb;
+    color: black;
+  }
+
+  /* Style the back side */
+  .flip-box-back {
+    background-color: #bbb;
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  @media screen and (max-width: 479px){
+    #heading-tag, #timer{
+        font-size: .8rem;
+       }
+       #timer{
+        margin-top: 2.5rem;
+       }
+       #start-clear-button{
+        font-size: .35rem;
+        height: 20%;
+       }
+       #result-count{
+        font-weight: .4rem;
+       }
+       #result-count{
+        font-size: .5rem;
+        margin-top: 2rem;
+       }
+       #div-wrapper{
+        padding-left: .8rem;
+        height: 57vh;
+        width: 80vw;
+       }
+       .flip-box .flip-box-inner .card{
+        width: 10vw;
+        height: 8vh;
+    }
+    .flip-box-back {
+        width: 8vw;
+        height: 7.5vh;
+    }
+  }
+
+@media screen and (max-width: 600px) and (min-width: 480px) {
+    #heading-tag, #timer{
+        font-size: 1rem;
+       }
+       #timer{
+        margin-top: 4rem;
+       }
+       #start-clear-button{
+        font-size: .5rem;
+        height: 40%;
+       }
+       #result-count{
+        font-weight: .8rem;
+       }
+       #result-count{
+        font-size: 1rem;
+        margin-top: 4rem;
+       }
+       #div-wrapper{
+        padding-left: 1.5rem;
+        height: 57vh;
+        width: 66vw;
+       }
+       .flip-box .flip-box-inner .card{
+        width: 9vw;
+        height: 11vh;
+    }
+    .flip-box-back {
+        width: 7vw;
+        height: 10vh;
+    }
+  }
+  @media screen and (max-width: 900px) and (min-width: 601px) {
+    #heading-tag, #timer{
+        font-size: 1.4rem;
+       }
+       #start-clear-button{
+        font-size: 1rem;
+        height: 60%;
+       }
+       #timer{
+        margin-top: 3.5rem;
+       }
+       #result-count{
+        font-weight: .8rem;
+        margin-top: 4.5rem;
+       }
+       #result-count{
+        font-size: 1rem;
+       }
+       #div-wrapper{
+        padding-left: 0rem;
+        height: 67vh;
+        width: 60vw;
+       }
+       .flip-box .flip-box-inner .card{
+        width: 9vw;
+        height: 14vh;
+    }
+    .flip-box-back {
+        width: 7.5vw;
+        height: 13vh;
+    }
+  }
+  @media screen and (max-width: 1030px) and (min-width: 901px){
+    #heading-tag, #timer{
+        font-size: 1.5rem;
+       }
+       #start-clear-button{
+        font-size: 1rem;
+        height: 60%;
+       }
+       #result-count{
+        font-weight: 1.5rem;
+       }
+       #result-count{
+        font-size: 1.5rem;
+       }
+       #div-wrapper{
+        padding-left: 1.5rem;
+        width: 56vw;
+       }
+       .flip-box .flip-box-inner .card{
+        width: 8vw;
+        height: 16vh;
+    }
+    .flip-box-back {
+        margin-left: .2vw;
+        width: 7vw;
+        height: 14vh;
+    }
+  }
+  @media screen and (min-width: 1031px){
+    #heading-tag, #timer{
+        font-size: 2.5rem;
+       }
+       #start-clear-button{
+        font-size: 1.5rem;
+        height: 60%;
+       }
+       #result-count{
+        font-weight: 1.8rem;
+       }
+       #result-count{
+        font-size: 1.8rem;
+       }
+       #div-wrapper{
+        padding-left: 1.8rem;
+        width: 50vw;
+        height: 60vh;
+       }
+       .flip-box .flip-box-inner .card{
+        width: 5vw;
+        height: 14vh;
+    }
+    .flip-box-back {
+        width: 4.5vw;
+        height: 13vh;
+        margin-left: 3vw;
+    }
+  }

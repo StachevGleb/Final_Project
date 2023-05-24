@@ -1,14 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Artists are presented on the website</h1>
+<h1 class="mb-5">Artists are presented on the website</h1>
 
  {% for artist in art_list.items %}
 <div class="d-flex justify-content-start">
-
         <img class="rounded article-img-art m-2" src="{{ url_for('static', filename='artists_img/' + artist.id|string + '.jpg') }}">
     <div class="d-flex flex-column align-items-center">
         <b><div>{{ artist.artistname }}</div></b>
-        <p class="text-secondary mt-3">{{ artist.about }}</p>
+        <p class="text-secondary ml-3">{{ artist.about }}</p>
     </div>
 </div>
 

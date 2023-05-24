@@ -2,7 +2,7 @@ import psycopg2
 from flask import render_template, url_for, flash, redirect, request
 from gallery import app, db, bcrypt, mail
 from gallery.forms import RegistrationForm, LoginForm, UpdateProfileForm, PostForm, \
-    RequestResetForm, ResetPasswordForm
+    RequestResetForm, ResetPasswordForm, UploadPaintingForm
 from gallery.models import User, Post, Artist, Painting
 from flask import abort
 from flask_login import login_user, logout_user, login_required, current_user
@@ -12,9 +12,10 @@ import os
 from flask_mail import Message
 
 
-#############################
 
-# from gallery.painting_db import save_painting
+#############################
+# from gallery.painting_db import save_artist, save_painting
+
 
 
 @app.route("/")
@@ -76,8 +77,11 @@ def save_pic(form_pic):
     pic_filename = random_hex + f_ext
     pic_path = os.path.join(app.root_path, 'static/profile_img', pic_filename)
 
-    resized_pic = (125, 125)
+    target_height = 325
     img = Image.open(form_pic)
+    aspect_ratio = img.width / img.height
+    target_width = int(target_height * aspect_ratio)
+    resized_pic = (target_width, target_height)
     img.thumbnail(resized_pic)
     img.save(pic_path)
 
@@ -265,3 +269,87 @@ def paintings():
     paint_list = Painting.query.order_by(Painting.id.asc()).paginate(page=page, per_page=6)
 
     return render_template('paintings.html', paint_list=paint_list, images_list_rel=images_list_rel)
+
+
+# def save_pic(form_pic):
+#     random_hex = secrets.token_hex(8)
+#     _, f_ext = os.path.splitext(form_pic.filename)
+#     pic_filename = random_hex + f_ext
+#     pic_path = os.path.join(app.root_path, 'static/profile_img', pic_filename)
+#
+#
+#     target_height = 325
+#     img = Image.open(form_pic)
+
+#     aspect_ratio = img.width / img.height
+#     target_width = int(target_height * aspect_ratio)
+#     resized_pic = (target_width, target_height)
+#     img.thumbnail(resized_pic)
+#     img.save(pic_path)
+#
+#     return pic_filename
+def save_painting(painting_img, painting_name, artist_id, counter):
+    _, f_ext = os.path.splitext(painting_img.filename)
+    pic_filename = painting_name + f_ext
+    dir_path = os.path.join(app.root_path, 'static/paintings/')
+    dir_name = str(artist_id)
+    path = os.path.join(dir_path, dir_name)
+    if counter == 0:
+        os.mkdir(path)
+    pic_path = os.path.join(path + '/' + pic_filename)
+
+    target_height = 700
+    img = Image.open(painting_img)
+    aspect_ratio = img.width / img.height
+    target_width = int(target_height * aspect_ratio)
+    resized_pic = (target_width, target_height)
+    img.thumbnail(resized_pic)
+    img.save(pic_path)
+
+    return pic_filename
+
+
+@app.route("/upload_painting", methods=['GET', 'POST'])
+@login_required
+def upload_painting():
+    form = UploadPaintingForm()
+    if form.validate_on_submit():
+        if form.painting_img.data:
+            artists_list = Artist.query.all()
+            for artist in artists_list:
+                painting_name = form.description.data
+                artist_id = artist.id
+                painting_img = form.painting_img.data
+                if artist.artistname == current_user.username:
+                    artist = Artist(artistname=current_user.username, about=form.about.data)
+                    db.session.add(artist)
+                    db.session.commit()
+                    painting = Painting(title=current_user.username, description=form.description.data,
+                                        artist_id=artist.id)
+                    db.session.add(painting)
+                    db.session.commit()
+                    save_painting(painting_img, painting_name, artist_id, counter=0)
+                    flash('Artist with your current user name has been created and painting uploaded!', 'success')
+                    return redirect(url_for('paintings'))
+                else:
+                    artist = Artist.query.filter_by(artistname=current_user.username).first()
+                    artist_id = artist.id
+                    painting = Painting(title=current_user.username, description=form.description.data,
+                                        artist_id=artist.id)
+                    db.session.add(painting)
+                    db.session.commit()
+                    save_painting(painting_img, painting_name, artist_id, counter=1)
+                    flash('Additional painting uploaded!', 'success')
+                    return redirect(url_for('paintings'))
+    artists_list = Artist.query.all()
+    paint_file = ''
+    for artist in artists_list:
+        painting = Painting.query.filter_by(artist_id=artist.id).first()
+        if current_user.username == artist.artistname:
+            paint_file = url_for('static', filename='paintings/' + str(artist.id) + '/' + painting.description)
+    return render_template('upload_painting.html', title='Upload Painting', paint_file=paint_file, form=form)
+
+
+@app.route("/match_artists_game")
+def match_artists():
+    return render_template('match_game.html')
