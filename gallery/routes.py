@@ -14,7 +14,6 @@ from flask_mail import Message
 import glob
 
 
-
 #############################
 # from gallery.painting_db import save_artist, save_painting
 
@@ -26,6 +25,11 @@ def posts():
     # save_artist()
     # save_painting()
     return render_template('posts.html', posted=posted)
+
+
+@app.route('/health')
+def health():
+    return "ok"
 
 
 @app.route("/about")
@@ -254,6 +258,7 @@ def error_403(error):
 def error_500(error):
     return render_template('errors/500.html'), 500
 
+
 @app.route("/")
 @app.route("/artists")
 def artists():
@@ -452,7 +457,7 @@ def update_painting(description):
         flash('Your painting has been updated!', 'success')
         return redirect(url_for('paintings', description=description))
     elif request.method == 'GET':
-         form.description.data = painting.description
+        form.description.data = painting.description
     return render_template('update_painting.html', title='Update Painting info', form=form,
                            legend='Update Painting info', painting=painting)
 
@@ -487,6 +492,3 @@ def delete_painting(description):
     db.session.commit()
     flash('Your painting has been deleted!', 'success')
     return redirect(url_for('paintings'))
-
-
-
