@@ -85,7 +85,6 @@ def save_artist_pic(picture_file, artist_id):
     resized_pic = (target_width, target_height)
     img.thumbnail(resized_pic)
     img.save(pic_path)
-
     return pic_filename
 
 
@@ -267,11 +266,11 @@ def artists():
 @app.route("/paintings")
 def paintings():
     conn = psycopg2.connect(
-        host="localhost",
+        host="dpg-ch7aj2o2qv26p1buenvg-a.oregon-postgres.render.com",
         port="5432",
-        database="gallery",
-        user="postgres",
-        password="Lena091165"
+        database="gallery_2nft",
+        user="gleb",
+        password="1YupNaos78oExe5rlkQrvYRyTfhVE38X"
     )
     cursor = conn.cursor()
     query = "SELECT id FROM artist"
@@ -385,11 +384,11 @@ def match_artists():
 @app.route("/artist/<string:artistname>")
 def artist_paintings(artistname):
     conn = psycopg2.connect(
-        host="localhost",
+        host="dpg-ch7aj2o2qv26p1buenvg-a.oregon-postgres.render.com",
         port="5432",
-        database="gallery",
-        user="postgres",
-        password="Lena091165"
+        database="gallery_2nft",
+        user="gleb",
+        password="1YupNaos78oExe5rlkQrvYRyTfhVE38X"
     )
     cursor = conn.cursor()
     query = "SELECT id FROM artist"

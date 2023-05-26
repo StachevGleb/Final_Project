@@ -1,6 +1,6 @@
-# from gallery.models import Artist, Painting
-# from gallery import db
-#
+from gallery.models import Artist, Painting
+from gallery import db
+
 #
 # def save_artist():
 #     artist01 = Artist(artistname='Vincent van Gogh',
@@ -113,6 +113,7 @@
 #     for x in artists_list:
 #         db.session.add(x)
 #         db.session.commit()
+
 
 # ##################################list of artist - paintings uploading################################
 #
