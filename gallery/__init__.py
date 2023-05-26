@@ -20,17 +20,17 @@ app.config['SECRET_KEY'] = '5791628bb0b13mbjhv887vge280ba245'
 #            'user': 'postgres',
 #            'port': '5432'}
 
-db_info = {'host': 'dpg-ch7aj2o2qv26p1buenvg-a.oregon-postgres.render.com',
-           'database': 'gallery_2nft',
-           'psw': '1YupNaos78oExe5rlkQrvYRyTfhVE38X',
+db_info = {'host': 'dpg-chohar67avjb90hnel50-a.oregon-postgres.render.com',
+           'database': 'gallery_0ol7',
+           'psw': 'U6ezg9aq9oBVI9lF0c61ARRtll6HVtEu',
            'user': 'gleb',
            'port': '5432'}
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db_info['user']}:{db_info['psw']}@{db_info['host']}/{db_info['database']}"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gleb:1YupNaos78oExe5rlkQrvYRyTfhVE38X@dpg-ch7aj2o2qv26p1buenvg-a.oregon-postgres.render.com/gallery_2nft"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gleb:U6ezg9aq9oBVI9lF0c61ARRtll6HVtEu@dpg-chohar67avjb90hnel50-a.oregon-postgres.render.com/gallery_0ol7"
 
-# postgres://gleb:1YupNaos78oExe5rlkQrvYRyTfhVE38X@dpg-ch7aj2o2qv26p1buenvg-a.oregon-postgres.render.com/gallery_2nft
+# postgres://gleb:U6ezg9aq9oBVI9lF0c61ARRtll6HVtEu@dpg-chohar67avjb90hnel50-a.oregon-postgres.render.com/gallery_0ol7
 
 db = flask_sqlalchemy.SQLAlchemy(app)
 migrate = flask_migrate.Migrate(app, db)

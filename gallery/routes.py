@@ -15,7 +15,7 @@ import glob
 
 
 #############################
-# from gallery.painting_db import save_artist, save_painting
+# from gallery.painting_db import save_painting
 
 
 @app.route("/posts")
@@ -268,20 +268,25 @@ def artists():
     return render_template('artists.html', art_list=art_list)
 
 
+# def test():
+#     images_list = []
+#     results = []
+#     artists_list = Artist.query.all()
+#     for artist in artists_list:
+#         results.append(artist.id)
+#     for row in results:
+#         image_list = os.listdir('gallery/static/paintings' + '/' + str(row))
+#         image_list = [str(row) + '/' + image for image in image_list]
+#         images_list.append(image_list)
+#     return image_list
+
+
 @app.route("/paintings")
 def paintings():
-    conn = psycopg2.connect(
-        host="dpg-ch7aj2o2qv26p1buenvg-a.oregon-postgres.render.com",
-        port="5432",
-        database="gallery_2nft",
-        user="gleb",
-        password="1YupNaos78oExe5rlkQrvYRyTfhVE38X"
-    )
-    cursor = conn.cursor()
-    query = "SELECT id FROM artist"
-
-    cursor.execute(query)
-    results = cursor.fetchall()  # Retrieve all rows
+    results = []
+    artists_list = Artist.query.all()
+    for artist in artists_list:
+        results.append([artist.id])
     images_list = []
     images_list_rel = []
     for row in results:
@@ -295,16 +300,13 @@ def paintings():
             my_new_string = my_new_string.replace("/", '').lstrip('0123456789')
             images_list_rel.append(my_new_string)
 
-    cursor.close()
-    conn.close()
-
     page = request.args.get('page', 1, type=int)
     paint_list = Painting.query.order_by(Painting.id.asc()).paginate(page=page, per_page=6)
 
     return render_template('paintings.html', paint_list=paint_list, images_list_rel=images_list_rel)
 
 
-def save_artist_pic(artists_img_file, artist_id):
+def save_artists_pic(artists_img_file, artist_id):
     file_name = os.path.basename(artists_img_file)
     name, extension = os.path.splitext(file_name)
     pic_filename = str(artist_id) + extension
@@ -357,7 +359,7 @@ def upload_painting():
             db.session.commit()
             artists_img_file = current_user.image_file
             artist_id = artist.id
-            save_artist_pic(artists_img_file, artist_id)
+            save_artists_pic(artists_img_file, artist_id)
             painting = Painting(title=current_user.username, description=form.description.data,
                                 artist_id=artist.id)
             db.session.add(painting)
@@ -388,18 +390,10 @@ def match_artists():
 
 @app.route("/artist/<string:artistname>")
 def artist_paintings(artistname):
-    conn = psycopg2.connect(
-        host="dpg-ch7aj2o2qv26p1buenvg-a.oregon-postgres.render.com",
-        port="5432",
-        database="gallery_2nft",
-        user="gleb",
-        password="1YupNaos78oExe5rlkQrvYRyTfhVE38X"
-    )
-    cursor = conn.cursor()
-    query = "SELECT id FROM artist"
-
-    cursor.execute(query)
-    results = cursor.fetchall()  # Retrieve all rows
+    results = []
+    artists_list = Artist.query.all()
+    for artist in artists_list:
+        results.append([artist.id])
     images_list = []
     images_list_rel = []
     for row in results:
@@ -412,9 +406,6 @@ def artist_paintings(artistname):
             my_new_string = image.replace(".jpg", "")
             my_new_string = my_new_string.replace("/", '').lstrip('0123456789')
             images_list_rel.append(my_new_string)
-
-    cursor.close()
-    conn.close()
 
     page = request.args.get('page', 1, type=int)
     artist = Artist.query.filter_by(artistname=artistname).first_or_404()

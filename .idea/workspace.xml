@@ -6,10 +6,28 @@
   <component name="ChangeListManager">
     <list default="true" id="945f0922-3d47-402b-94ce-fcde8d4d3905" name="Changes" comment="Deploying">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/1/5th.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/1/6th.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/1/My Third.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/1/my try number4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/painting_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/painting_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/artists_img/16.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/artists_img/27.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/artists_img/28.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/artists_img/29.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/16/Admin test first example.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/27/Third user for test painting.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/28/Test img one.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/28/Test img two.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/29/New Marina.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/29/Timna Park.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/paintings/29/Water lilies.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/profile_img/7950033133034444.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/static/profile_img/ff532f5f825c2865.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gallery/templates/paintings.html" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/templates/paintings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/instance/site.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/1127003d47f2_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/77ad4bd713f9_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/versions/db2d2d5ecd48_.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/site.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,8 +239,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.wsgi (1)" />
-        <item itemvalue="Python.routes" />
         <item itemvalue="Python.painting_db" />
+        <item itemvalue="Python.routes" />
         <item itemvalue="Python.wsgi" />
       </list>
     </recent_temporary>
@@ -390,7 +408,35 @@
       <option name="project" value="LOCAL" />
       <updated>1685066719845</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Deploying">
+      <created>1685066899613</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1685066899613</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Deploying">
+      <created>1685066925327</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1685066925327</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Deploying">
+      <created>1685100940260</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1685100940260</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Deploying">
+      <created>1685101022226</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1685101022226</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -412,16 +458,5 @@
     <MESSAGE value="BeforeDeploying" />
     <MESSAGE value="Deploying" />
     <option name="LAST_COMMIT_MESSAGE" value="Deploying" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/wsgi.py</url>
-          <line>3</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
