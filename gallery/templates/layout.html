@@ -52,7 +52,7 @@
               <a class="nav-item nav-link" href="{{ url_for('artists') }}"><b>ARTISTS</b></a>
               <a class="nav-item nav-link" href="{{ url_for('paintings') }}"><b>MASTERPIECES</b></a>
                 {% if current_user.is_authenticated %}
-                    <a class="nav-item nav-link text-success" href="#"><small><b>Upload My Paintings</b></small></a>
+                    <a class="nav-item nav-link text-success" href="{{ url_for('upload_painting') }}"><small><b>Upload My Paintings</b></small></a>
                 {% endif %}
             </div>
             <!-- Navbar Right Side -->

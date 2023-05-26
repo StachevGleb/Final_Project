@@ -45,11 +45,10 @@
             <h3 class="ml-2">Art gallery</h3>
             <p class='text-muted'>This is the place where you can see the paintings of famous artists and not very famous, but still full of soulfulness.
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Artists</li>
-                <li class="list-group-item list-group-item-light">Paintings</li>
-                <li class="list-group-item list-group-item-light">Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
+                <a class="nav-item nav-link" href="{{ url_for('artists') }}"><li class="list-group-item list-group-item-light">Artists</li></a>
+                <a class="nav-item nav-link" href="{{ url_for('paintings') }}"><li class="list-group-item list-group-item-light">Paintings</li></a>
+                <a class="nav-item nav-link" href="{{ url_for('posts') }}"><li class="list-group-item list-group-item-light">Posts</li></a>
+                <a class="nav-item nav-link" href="{{ url_for('match_artists') }}"><li class="list-group-item list-group-item-light">Game</li></a>
               </ul>
             </p>
           </div>

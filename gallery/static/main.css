@@ -110,4 +110,21 @@ a.article-title:hover {
   margin: auto;
   padding: 15px 10px;
 }
+.links:hover{
+  color: #6c757d;
+}
 
+.frame-sing{
+  transition: 4s;
+  transition-delay: 4s;
+  height: 50vh;
+  border: 5px solid #ccc;
+  background: #eee;
+  margin: auto;
+  padding: 15px 10px;
+}
+
+.frame-sing:hover{
+ height: 55vh;
+ transition: 2s;
+}

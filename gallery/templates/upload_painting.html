@@ -4,7 +4,6 @@
     <div class="media">
 
         <div class="media-body">
-            <img class="border-success rounded-left" src="{{ paint_file }}">
             <h2 class="account-heading">{{ current_user.username }}</h2>
             <p class="text-secondary">{{ current_user.email }}</p>
         </div>
@@ -14,7 +13,10 @@
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Uploading painting</legend>
+                <legend class="border-bottom mb-4">{{ legend }}</legend>
+
+                {% if artist_ex is none %}
+
                 <div class="form-group">
                     {{ form.about.label(class="form-control-label") }}
                     {% if form.about.errors %}
@@ -29,6 +31,8 @@
                     {% endif %}
                 </div>
 
+                {% endif %}
+
                 <div class="form-group">
                     {{ form.description.label(class="form-control-label") }}
                     {% if form.description.errors %}
@@ -42,6 +46,7 @@
                     {{ form.description(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+                {% if painting.title != current_user.username %}
                 <div class="form-group">
                     {{ form.painting_img.label() }}
                     {{ form.painting_img(class="form-control-file") }}
@@ -51,10 +56,13 @@
                        {% endfor %}
                    {% endif %}
                 </div>
+                {% endif %}
             </fieldset>
+
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
+
         </form>
     </div>
 {% endblock content %}
@@ -65,11 +73,10 @@
             <h3 class="ml-2">Art gallery</h3>
             <p class='text-muted'>This is the place where you can see the paintings of famous artists and not very famous, but still full of soulfulness.
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Artists</li>
-                <li class="list-group-item list-group-item-light">Paintings</li>
-                <li class="list-group-item list-group-item-light">Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
+                <a class="nav-item nav-link" href="{{ url_for('artists') }}"><li class="list-group-item list-group-item-light">Artists</li></a>
+                <a class="nav-item nav-link" href="{{ url_for('paintings') }}"><li class="list-group-item list-group-item-light">Paintings</li></a>
+                <a class="nav-item nav-link" href="{{ url_for('posts') }}"><li class="list-group-item list-group-item-light">Posts</li></a>
+                <a class="nav-item nav-link" href="{{ url_for('match_artists') }}"><li class="list-group-item list-group-item-light">Game</li></a>
               </ul>
             </p>
           </div>

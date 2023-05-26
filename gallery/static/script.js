@@ -42,7 +42,7 @@ function addBackNum(imagePath) {
 function generateCards() {
     let cards = document.querySelectorAll(".card")
     for (let card of cards) {
-        card.style.backgroundImage = "url('./static/backCardImg.jpg')"
+        card.style.backgroundImage = "url('./static/backCardImg.png')"
         card.style.backgroundSize = "95% 95%"
         card.style.backgroundRepeat = "no-repeat"
     }
