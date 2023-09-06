@@ -42,7 +42,7 @@
 #         db.session.commit()
 #
 #
-# def save_painting():
+# def save_paintings():
 #     painting01 = Painting(title='Vincent van Gogh',
 #                           description='The Starry Night', artist_id=1)
 #     painting02 = Painting(title='Vincent van Gogh',
@@ -113,13 +113,13 @@
 #     for x in artists_list:
 #         db.session.add(x)
 #         db.session.commit()
+#
+#
+#
 
-
-
-
-
-
-
+#
+#
+#
 # ##################################list of artist - paintings uploading################################
 #
 #

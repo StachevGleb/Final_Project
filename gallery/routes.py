@@ -15,7 +15,7 @@ import glob
 
 
 #############################
-# from gallery.painting_db import save_painting
+# from gallery.painting_db import save_artist, save_paintings
 
 
 @app.route("/posts")
@@ -23,7 +23,7 @@ def posts():
     page = request.args.get('page', 1, type=int)
     posted = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=3)
     # save_artist()
-    # save_painting()
+    # save_paintings()
     return render_template('posts.html', posted=posted)
 
 

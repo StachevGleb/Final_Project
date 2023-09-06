@@ -32,7 +32,7 @@
                     Picture Gallery
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="nav-item nav-link" href="{{ url_for('posts') }}"><button class="dropdown-item" type="button"><b>Posts</b></button></a>
+                    <a class="nav-item nav-link" href="{{ url_for('posts') }}"><button class="dropdown-item" ><b>Posts</b></button></a>
                  {% if current_user.is_authenticated %}
                     <a class="nav-item nav-link" href="{{ url_for('new_post') }}"><button class="dropdown-item" type="button"><b>New Post</b></button></a>
                     <a class="nav-item nav-link" href="{{ url_for('profile') }}"><button class="dropdown-item btn btn-outline-info text-primary" type="button">Profile</button></a>
