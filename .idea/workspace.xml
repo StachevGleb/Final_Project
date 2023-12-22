@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="945f0922-3d47-402b-94ce-fcde8d4d3905" name="Changes" comment="Deploying">
-      <change afterPath="$PROJECT_DIR$/.idea/Final_Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Final_Project_Draft.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gallery/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/painting_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/painting_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gallery/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/gallery/templates/post.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -26,13 +26,17 @@ app.config['SECRET_KEY'] = '5791628bb0b13mbjhv887vge280ba245'
 #            'user': 'gleb',
 #            'port': '5432'}
 
-db_info = {'host': 'dpg-cjs6055v2qks738556rg-a.frankfurt-postgres.render.com',
-           'database': 'gallery_yiwm',
-           'psw': '6aXU7uHGaPqNrLkpufSM6OhuIpFxjcqf',
+db_info = {'host': 'dpg-cm2v1q5a73kc73enittg-a.frankfurt-postgres.render.com',
+           'database': 'gallery_lp7s',
+           'psw': 'i4YY3kwpqkjHfHlo07xFEBsi9b47j3l3',
            'user': 'stachev',
            'port': '5432'}
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://stachev:6aXU7uHGaPqNrLkpufSM6OhuIpFxjcqf@dpg-cjs6055v2qks738556rg-a.frankfurt-postgres.render.com/gallery_yiwm"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://stachev:6aXU7uHGaPqNrLkpufSM6OhuIpFxjcqf@dpg-cjs6055v2qks738556rg-a.frankfurt-postgres.render.com/gallery_yiwm"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://stachev:i4YY3kwpqkjHfHlo07xFEBsi9b47j3l3@dpg-cm2v1q5a73kc73enittg-a.frankfurt-postgres.render.com/gallery_lp7s"
+
+
+
 
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db_info['user']}:{db_info['psw']}@{db_info['host']}/{db_info['database']}"
